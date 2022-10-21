@@ -444,3 +444,4 @@ FodyWeavers.xsd
 **.vcxproj.user
 
 *.log
+Build/

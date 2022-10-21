@@ -13,11 +13,11 @@ project "Dough"
     objdir ("Build/%{prj.name}/Intermediates/" .. outputDir)
 
     vpaths {
-        ["Include"] = {"Dough/**.h", "Dough/**.hpp"},
-        ["Source"] = {"Dough/**.cpp", "Dough/**.c"},
+        ["Include"] = {"Dough/Include/**.h", "Dough/Include/**.hpp"},
+        ["Source"] = {"Dough/Source/**.cpp", "Dough/Source/**.c"},
     }
 
-    files { "Dough/**.h", "Dough/**.hpp", "Dough/**.cpp", "Dough/**.c" }
+    files { "Dough/Include/**.h", "Dough/Include/**.hpp", "Dough/Source/**.cpp", "Dough/Source/**.c" }
 
     includedirs 
     { 
@@ -29,7 +29,7 @@ project "Dough"
     filter "system:windows"
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/Sandbox/" .. outputDir)
+            ("{COPY} %{cfg.buildtarget.relpath} ../Build/Sandbox/" .. outputDir)
         }
         defines { "DH_BUILD_DLL" }
 
@@ -44,11 +44,11 @@ project "Sandbox"
     objdir ("Build/%{prj.name}/Intermediates/" .. outputDir)
 
     vpaths {
-        ["Headers"] = {"Sandbox/**.h", "Sandbox/**.hpp"},
-        ["Source"] = {"Sandbox/**.cpp", "Sandbox/**.c"},
+        ["Headers"] = {"Sandbox/Include/**.h", "Sandbox/Include/**.hpp"},
+        ["Source"] = {"Sandbox/Source/**.cpp", "Sandbox/Source/**.c"},
     }
 
-    files { "Sandbox/**.h", "Sandbox/**.hpp", "Sandbox/**.cpp", "Sandbox/**.c" }
+    files { "Sandbox/Include/**.h", "Sandbox/Include/**.hpp", "Sandbox/Source/**.cpp", "Sandbox/Source/**.c" }
     includedirs 
     { 
         "Dough/Vendor/spdlog/include",
