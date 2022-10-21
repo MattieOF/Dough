@@ -59,7 +59,7 @@ project "Sandbox"
 
     links
     {
-        "Hazel"
+        "Dough"
     }
 
 os.mkdir("Sandbox/Source")
