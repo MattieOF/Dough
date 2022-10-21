@@ -2,6 +2,7 @@
 
 #include "Dough/Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h" // Needed for logging some types
 
 namespace Dough
 {
