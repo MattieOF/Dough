@@ -4,6 +4,7 @@
 #pragma once
 
 #include "Dough/Application.h"
+#include "Dough/Log.h"
 
 // ------ Entry point -------
 #include "Dough/EntryPoint.h"
