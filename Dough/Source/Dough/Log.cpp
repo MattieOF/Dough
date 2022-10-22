@@ -1,3 +1,4 @@
+#include "dhpch.h"
 #include "Dough/Log.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"

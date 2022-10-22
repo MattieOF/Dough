@@ -1,7 +1,5 @@
 #pragma once
 
-#include <sstream>
-
 #include "Dough/Events/Event.h"
 
 namespace Dough

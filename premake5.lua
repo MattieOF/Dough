@@ -12,6 +12,9 @@ project "Dough"
     targetdir ("Build/%{prj.name}/" .. outputDir)
     objdir ("Build/%{prj.name}/Intermediates/" .. outputDir)
 
+    pchheader "dhpch.h"
+    pchsource "Dough/Source/dhpch.cpp"
+
     vpaths {
         ["Include"] = {"Dough/Include/**.h", "Dough/Include/**.hpp"},
         ["Source"] = {"Dough/Source/**.cpp", "Dough/Source/**.c"},

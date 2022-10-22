@@ -2,9 +2,6 @@
 
 #include "Dough/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Dough
 {
 

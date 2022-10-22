@@ -2,8 +2,6 @@
 
 #include "Dough/Events/Event.h"
 
-#include <sstream>
-
 namespace Dough
 {
 	class DOUGH_API WindowResizeEvent : public Event

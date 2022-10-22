@@ -1,3 +1,4 @@
+#include "dhpch.h"
 #include "Dough/Application.h"
 
 #include "Dough/Log.h"
