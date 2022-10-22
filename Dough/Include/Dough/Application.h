@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Dough/Core.h"
-#include "Dough/Events/Event.h"
 
 namespace Dough
 {
