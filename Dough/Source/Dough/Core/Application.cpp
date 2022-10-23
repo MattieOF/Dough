@@ -54,6 +54,16 @@ namespace Dough
 		m_LayerStack.PushOverlay(overlay);
 	}
 
+	void Application::PopLayer(Layer* layer)
+	{
+		m_LayerStack.PopLayer(layer);
+	}
+
+	void Application::PopOverlay(Layer* overlay)
+	{
+		m_LayerStack.PopOverlay(overlay);
+	}
+
 	bool Application::OnWindowClosed(WindowCloseEvent e)
 	{
 		m_Running = false;
