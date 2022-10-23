@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Dough/Core.h"
+#include "Dough/Core/Core.h"
 
 namespace Dough
 {

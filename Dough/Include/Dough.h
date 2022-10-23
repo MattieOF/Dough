@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "Dough/Application.h"
-#include "Dough/Log.h"
+#include "Dough/Core/Application.h"
+#include "Dough/Core/Log.h"
 
 // ------ Entry point -------
-#include "Dough/EntryPoint.h"
+#include "Dough/Core/EntryPoint.h"
 // --------------------------

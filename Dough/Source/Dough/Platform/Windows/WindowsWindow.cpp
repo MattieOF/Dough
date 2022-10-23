@@ -1,0 +1,68 @@
+#include "dhpch.h"
+#include "Dough/Platform/Windows/WindowsWindow.h"
+
+#include "Dough/Core/Log.h"
+
+namespace Dough
+{
+	static bool s_GLFWInitialised = false;
+
+	Window* Window::Create(const WindowSpecification& spec)
+	{
+		return new WindowsWindow(spec);
+	}
+
+	WindowsWindow::WindowsWindow(const WindowSpecification& spec)
+	{
+		WindowsWindow::Init(spec);
+	}
+
+	WindowsWindow::~WindowsWindow()
+	{
+		WindowsWindow::Shutdown();
+	}
+
+	void WindowsWindow::OnUpdate()
+	{
+		glfwPollEvents();
+		glfwSwapBuffers(m_Window);
+	}
+
+	void WindowsWindow::SetVSync(bool enabled)
+	{
+		if (enabled)
+			glfwSwapInterval(1);
+		else
+			glfwSwapInterval(0);
+
+		m_Data.VSync = enabled;
+	}
+
+	void WindowsWindow::Init(const WindowSpecification& spec)
+	{
+		m_Data.Title = spec.Title;
+		m_Data.Width = spec.Width;
+		m_Data.Height = spec.Height;
+
+		DH_ENGINE_INFO("Creating window; Title: {0}, Size: ({1}, {2})", spec.Title, spec.Width, spec.Height);
+
+		if (!s_GLFWInitialised)
+		{
+			DH_ENGINE_INFO("Initialising GLFW...");
+			const int success = glfwInit();
+			DH_ASSERT_FATAL(success, "Failed to initialise GLFW.");
+			s_GLFWInitialised = true;
+		}
+
+		m_Window = glfwCreateWindow(spec.Width, spec.Height, spec.Title.c_str(), nullptr, nullptr);
+		DH_ASSERT_FATAL(m_Window, "Failed to create GLFW window!");
+		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowUserPointer(m_Window, &m_Data);
+		SetVSync(true);
+	}
+
+	void WindowsWindow::Shutdown()
+	{
+		glfwDestroyWindow(m_Window);
+	}
+}

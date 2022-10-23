@@ -12,6 +12,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Dough/Core/Log.h"
+
+#include "ppk_assert.h"
+
 #ifdef DH_PLATFORM_WINDOWS
 	#include "Windows.h"
 #endif

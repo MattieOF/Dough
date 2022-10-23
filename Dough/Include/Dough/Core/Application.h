@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Dough/Core.h"
+#include "Window.h"
+#include "Dough/Core/Core.h"
 
 namespace Dough
 {
@@ -11,6 +12,9 @@ namespace Dough
 		virtual ~Application();
 
 		void Run();
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	// To be defined by the client

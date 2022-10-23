@@ -3,14 +3,21 @@ workspace "Dough"
     platforms { "Win64" }
     startproject "Sandbox"
 
-outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDir = {}
+IncludeDir["spdlog"] = "Dough/Vendor/spdlog/include"
+IncludeDir["GLFW"] = "Dough/Vendor/GLFW/include"
+IncludeDir["PPK_ASSERT"] = "Dough/Vendor/PPK_ASSERT"
+
+include "Dough/Vendor/GLFW"
 
 project "Dough"
     kind "SharedLib"
     language "C++"
     location "Dough"
-    targetdir ("Build/%{prj.name}/" .. outputDir)
-    objdir ("Build/%{prj.name}/Intermediates/" .. outputDir)
+    targetdir ("Build/%{prj.name}/" .. outputdir)
+    objdir ("Build/%{prj.name}/Intermediates/" .. outputdir)
 
     pchheader "dhpch.h"
     pchsource "Dough/Source/dhpch.cpp"
@@ -20,19 +27,33 @@ project "Dough"
         ["Source"] = {"Dough/Source/**.cpp", "Dough/Source/**.c"},
     }
 
-    files { "Dough/Include/**.h", "Dough/Include/**.hpp", "Dough/Source/**.cpp", "Dough/Source/**.c" }
+    files { 
+        "Dough/Include/**.h", "Dough/Include/**.hpp", 
+        "Dough/Source/**.cpp", "Dough/Source/**.c",
+        "Dough/Vendor/PPK_ASSERT/ppk_assert.cpp"
+    }
 
     includedirs 
     { 
-        "Dough/Vendor/spdlog/include",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.PPK_ASSERT}",
 
         "Dough/Include"
     }
 
+    links 
+    {
+        "GLFW",
+        "opengl32.lib"
+    }
+
+    defines { "PPK_ASSERT_DISABLE_IGNORE_LINE" }
+
     filter "system:windows"
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../Build/Sandbox/" .. outputDir)
+            ("{COPY} %{cfg.buildtarget.relpath} ../Build/Sandbox/" .. outputdir)
         }
         defines { "DH_BUILD_DLL" }
 
@@ -43,8 +64,8 @@ project "Sandbox"
     kind "ConsoleApp"
     language "C++"
     location "Sandbox"
-    targetdir ("Build/%{prj.name}/" .. outputDir)
-    objdir ("Build/%{prj.name}/Intermediates/" .. outputDir)
+    targetdir ("Build/%{prj.name}/" .. outputdir)
+    objdir ("Build/%{prj.name}/Intermediates/" .. outputdir)
 
     vpaths {
         ["Headers"] = {"Sandbox/Include/**.h", "Sandbox/Include/**.hpp"},
@@ -54,7 +75,8 @@ project "Sandbox"
     files { "Sandbox/Include/**.h", "Sandbox/Include/**.hpp", "Sandbox/Source/**.cpp", "Sandbox/Source/**.c" }
     includedirs 
     { 
-        "Dough/Vendor/spdlog/include",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.PPK_ASSERT}",
 
         "Dough/Include",
         "Sandbox/Include" 
@@ -71,12 +93,12 @@ os.mkdir("Sandbox/Include")
 project "*"
 
 filter "configurations:Debug"
-    defines { "DH_DEBUG" }
+    defines { "DH_DEBUG", "DH_ENABLE_ASSERTS" }
     runtime "Debug"
     symbols "On"
 
 filter "configurations:Release"
-    defines { "DH_RELEASE" }
+    defines { "DH_RELEASE", "DH_ENABLE_ASSERTS" }
     runtime "Release"
     optimize "On"
     symbols "On"
