@@ -4,8 +4,13 @@
 
 namespace Dough
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		DH_ASSERT_ERROR(s_Instance == nullptr, "Attempted to create a new Application instance, but one already exists.");
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 	}

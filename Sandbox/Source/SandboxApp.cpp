@@ -1,5 +1,7 @@
 #include <Dough.h>
 
+#include "Dough/ImGui/ImGuiLayer.h"
+
 class ExampleLayer : public Dough::Layer
 {
 public:
@@ -24,6 +26,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Dough::ImGuiLayer());
 	}
 
 	~Sandbox()

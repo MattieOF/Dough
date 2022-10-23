@@ -12,6 +12,8 @@ namespace Dough
 		Application();
 		virtual ~Application();
 
+		[[nodiscard]] static inline Application& Get() { return *s_Instance; }
+
 		void Run();
 
 		void OnEvent(Event& e);
@@ -20,12 +22,16 @@ namespace Dough
 		void PushOverlay(Layer* overlay);
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
+
+		[[nodiscard]] inline Window& GetWindow() const { return *m_Window; }
 	private:
 		bool OnWindowClosed(WindowCloseEvent e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		static Application* s_Instance;
 	};
 
 	// To be defined by the client
