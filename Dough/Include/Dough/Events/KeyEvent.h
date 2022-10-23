@@ -7,25 +7,25 @@ namespace Dough
 	class DOUGH_API KeyPressedEvent : public Dough::Event
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: m_KeyCode(keycode), m_RepeatCount(repeatCount)
+		KeyPressedEvent(int keycode, bool repeat)
+			: m_KeyCode(keycode), m_Repeat(repeat)
 		{ }
 
 		EVENT_CLASS_CATEGORY(EC_Keyboard | EC_Input)
 		EVENT_CLASS_TYPE(KeyPressed)
 
-		[[nodiscard]] inline int GetRepeatCount() const { return m_RepeatCount; }
+		[[nodiscard]] inline bool IsRepeat() const { return m_Repeat; }
 
 		[[nodiscard]] std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << m_KeyCode << " (" << (m_Repeat ? "" : " not ") << "repeating)";
 			return ss.str();
 		}
 
 	protected:
 		int m_KeyCode;
-		int m_RepeatCount;
+		bool m_Repeat;
 	};
 
 	class DOUGH_API KeyReleasedEvent : public Dough::Event

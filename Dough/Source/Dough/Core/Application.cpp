@@ -7,6 +7,7 @@ namespace Dough
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -22,5 +23,19 @@ namespace Dough
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_Window->OnUpdate();
 		}
+	}
+
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+
+		DH_ENGINE_TRACE("{0}", e);
+	}
+
+	bool Application::OnWindowClosed(WindowCloseEvent e)
+	{
+		m_Running = false;
+		return true;
 	}
 }
