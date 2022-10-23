@@ -445,3 +445,5 @@ FodyWeavers.xsd
 
 *.log
 Build/
+Dough/Vendor/GLAD/bin
+Dough/Vendor/GLAD/bin-int

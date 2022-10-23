@@ -3,6 +3,8 @@
 
 #include "Dough/Core/Log.h"
 
+#include <glad/gl.h>
+
 namespace Dough
 {
 	static bool s_GLFWInitialised = false;
@@ -64,6 +66,11 @@ namespace Dough
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
+
+		// Load GLAD
+		int version = gladLoadGL(glfwGetProcAddress);
+		DH_ASSERT_FATAL(version, "Failed to initialise OpenGL via GLAD!");
+		DH_ENGINE_INFO("Loaded OpenGL v{0}.{1}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 
 		// Setup GLFW event callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)

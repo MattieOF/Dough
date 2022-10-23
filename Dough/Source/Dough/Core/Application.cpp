@@ -1,6 +1,6 @@
 #include "dhpch.h"
 #include "Dough/Core/Application.h"
-#include <GLFW/glfw3.h>
+#include "glad/gl.h"
 
 namespace Dough
 {

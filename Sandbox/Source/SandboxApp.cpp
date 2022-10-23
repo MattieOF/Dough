@@ -14,7 +14,7 @@ public:
 
 	void OnEvent(Dough::Event& event) override
 	{
-		DH_TRACE("{0}", event);
+		// DH_TRACE("{0}", event);
 	}
 };
 

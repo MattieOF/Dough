@@ -9,8 +9,10 @@ IncludeDir = {}
 IncludeDir["spdlog"] = "Dough/Vendor/spdlog/include"
 IncludeDir["GLFW"] = "Dough/Vendor/GLFW/include"
 IncludeDir["PPK_ASSERT"] = "Dough/Vendor/PPK_ASSERT"
+IncludeDir["GLAD"] = "Dough/Vendor/GLAD/include"
 
 include "Dough/Vendor/GLFW"
+include "Dough/Vendor/GLAD"
 
 project "Dough"
     kind "SharedLib"
@@ -37,6 +39,7 @@ project "Dough"
     { 
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.GLFW}",
+        "%{IncludeDir.GLAD}",
         "%{IncludeDir.PPK_ASSERT}",
 
         "Dough/Include"
@@ -45,10 +48,11 @@ project "Dough"
     links 
     {
         "GLFW",
+        "GLAD",
         "opengl32.lib"
     }
 
-    defines { "PPK_ASSERT_DISABLE_IGNORE_LINE" }
+    defines { "PPK_ASSERT_DISABLE_IGNORE_LINE", "GLFW_INCLUDE_NONE" }
 
     filter "system:windows"
         postbuildcommands
