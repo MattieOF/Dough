@@ -85,5 +85,35 @@ namespace Dough
 
 	void ImGuiLayer::OnEvent(Event& event)
 	{
+		Layer::OnEvent(event);
+
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseMoved));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseButtonDown));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseButtonUp));
+	}
+
+	bool ImGuiLayer::OnMouseMoved(MouseMovedEvent e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MousePos = ImVec2(e.GetX(), e.GetY());
+
+		return false;
+	}
+
+	bool ImGuiLayer::OnMouseButtonDown(MouseButtonPressedEvent e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddMouseButtonEvent(e.GetButton(), true);
+
+		return false;
+	}
+
+	bool ImGuiLayer::OnMouseButtonUp(MouseButtonReleasedEvent e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddMouseButtonEvent(e.GetButton(), false);
+
+		return false;
 	}
 }
