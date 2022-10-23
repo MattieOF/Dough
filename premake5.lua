@@ -106,7 +106,6 @@ filter "configurations:Release"
 filter "configurations:Dist"
     defines { "DH_DIST" }
     runtime "Release"
-    staticruntime "On"
     optimize "On"
     symbols "Off"
 
