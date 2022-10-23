@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Dough/Core/Core.h"
 #include "Dough/Core/Log.h"
 
 #include "ppk_assert.h"

@@ -21,6 +21,11 @@ namespace Dough
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			// Update all layers from the base layer up
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -30,7 +35,23 @@ namespace Dough
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
 
-		DH_ENGINE_TRACE("{0}", e);
+		// Propagate the event to all layers, starting with the topmost layer/overlay, down to the base layer. 
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled)
+				break;
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
 	}
 
 	bool Application::OnWindowClosed(WindowCloseEvent e)
