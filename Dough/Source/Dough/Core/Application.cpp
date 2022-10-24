@@ -17,7 +17,6 @@ namespace Dough
 
 	Application::~Application()
 	{
-
 	}
 
 	void Application::Run()

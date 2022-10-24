@@ -45,6 +45,16 @@ namespace Dough
 		m_Data.VSync = enabled;
 	}
 
+	const char* WindowsWindow::GetClipboardText() const
+	{
+		return glfwGetClipboardString(m_Window);
+	}
+
+	void WindowsWindow::SetClipboardText(const char* text)
+	{
+		glfwSetClipboardString(m_Window, text);
+	}
+
 	void WindowsWindow::Init(const WindowSpecification& spec)
 	{
 		m_Data.Title = spec.Title;

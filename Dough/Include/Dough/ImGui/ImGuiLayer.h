@@ -27,6 +27,9 @@ namespace Dough
 		bool OnKeyReleased(KeyReleasedEvent& e) const;
 		bool OnKeyTyped(KeyTypedEvent& e) const;
 		bool OnWindowResize(WindowResizeEvent& e) const;
+		
+		static const char* GetClipboardTextCallback(void* userData);
+		static void SetClipboardTextCallback(void* userData, const char* text);
 
 	private:
 		ImGuiIO* m_IO = nullptr;

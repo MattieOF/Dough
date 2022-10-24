@@ -55,6 +55,11 @@ namespace Dough
 
 		Application& app = Application::Get();
 		m_IO->DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+
+		// Setup clipboard
+		m_IO->ClipboardUserData = &app.GetWindow();
+		m_IO->SetClipboardTextFn = SetClipboardTextCallback;
+		m_IO->GetClipboardTextFn = GetClipboardTextCallback;
 	}
 
 	void ImGuiLayer::OnDetach()
@@ -156,5 +161,17 @@ namespace Dough
 	{
 		m_IO->DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
 		return false;
+	}
+
+	const char* ImGuiLayer::GetClipboardTextCallback(void* userData)
+	{
+		const Window* window = static_cast<Window*>(userData);
+		return window->GetClipboardText();
+	}
+
+	void ImGuiLayer::SetClipboardTextCallback(void* userData, const char* text)
+	{
+		Window* window = static_cast<Window*>(userData);
+		window->SetClipboardText(text);
 	}
 }

@@ -23,7 +23,10 @@ namespace Dough
 		}
 
 		void SetVSync(bool enabled) override;
-		[[nodiscard]] bool IsVSync() const override { return m_Data.VSync; }
+		[[nodiscard]] inline bool IsVSync() const override { return m_Data.VSync; }
+
+		const char* GetClipboardText() const override;
+		void SetClipboardText(const char* text) override;
 	private:
 		virtual void Init(const WindowSpecification& spec);
 		virtual void Shutdown();
