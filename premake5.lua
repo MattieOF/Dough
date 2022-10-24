@@ -12,9 +12,11 @@ IncludeDir["PPK_ASSERT"] = "Dough/Vendor/PPK_ASSERT"
 IncludeDir["GLAD"] = "Dough/Vendor/GLAD/include"
 IncludeDir["ImGui"] = "Dough/Vendor/ImGui/"
 
-include "Dough/Vendor/GLFW"
-include "Dough/Vendor/GLAD"
-include "Dough/Vendor/ImGui"
+group "Vendor"
+    include "Dough/Vendor/GLFW"
+    include "Dough/Vendor/GLAD"
+    include "Dough/Vendor/ImGui"
+group ""
 
 project "Dough"
     kind "SharedLib"
@@ -65,7 +67,7 @@ project "Dough"
     filter "system:windows"
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../Build/Sandbox/" .. outputdir)
+            ("{COPY} %{cfg.buildtarget.relpath} \"../Build/Sandbox/" .. outputdir .. "/\"")
         }
         defines { "DH_BUILD_DLL" }
 
