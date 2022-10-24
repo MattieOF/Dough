@@ -39,6 +39,7 @@ namespace Dough
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResized));
 
 		// Propagate the event to all layers, starting with the topmost layer/overlay, down to the base layer. 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
@@ -73,5 +74,12 @@ namespace Dough
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResized(WindowResizeEvent e)
+	{
+		// TODO: Abstract this per graphics platform
+		glViewport(0, 0, e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }

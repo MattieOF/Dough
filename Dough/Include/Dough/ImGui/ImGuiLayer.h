@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Dough/Core/Layers/Layer.h"
-#include "Dough/Events/MouseEvent.h"
+#include "Dough/Events/Events.h"
+
+struct ImGuiIO;
 
 namespace Dough
 {
@@ -16,10 +18,18 @@ namespace Dough
 		void OnUpdate() override;
 		void OnEvent(Event& event) override;
 
-		bool OnMouseMoved(MouseMovedEvent e);
-		bool OnMouseButtonDown(MouseButtonPressedEvent e);
-		bool OnMouseButtonUp(MouseButtonReleasedEvent e);
 	private:
+		bool OnMouseMoved(MouseMovedEvent& e) const;
+		bool OnMouseButtonDown(MouseButtonPressedEvent& e) const;
+		bool OnMouseButtonUp(MouseButtonReleasedEvent& e) const;
+		bool OnMouseScrolled(MouseScrolledEvent& e) const;
+		bool OnKeyPressed(KeyPressedEvent& e) const;
+		bool OnKeyReleased(KeyReleasedEvent& e) const;
+		bool OnKeyTyped(KeyTypedEvent& e) const;
+		bool OnWindowResize(WindowResizeEvent& e) const;
+
+	private:
+		ImGuiIO* m_IO = nullptr;
 		float m_Time = 0.0f;
 	};
 }

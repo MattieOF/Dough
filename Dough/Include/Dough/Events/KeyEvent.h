@@ -14,6 +14,7 @@ namespace Dough
 		EVENT_CLASS_CATEGORY(EC_Keyboard | EC_Input)
 		EVENT_CLASS_TYPE(KeyPressed)
 
+		[[nodiscard]] inline int GetKeyCode() const { return m_KeyCode; }
 		[[nodiscard]] inline bool IsRepeat() const { return m_Repeat; }
 
 		[[nodiscard]] std::string ToString() const override
@@ -38,10 +39,35 @@ namespace Dough
 		EVENT_CLASS_CATEGORY(EC_Keyboard | EC_Input)
 		EVENT_CLASS_TYPE(KeyReleased)
 
+		[[nodiscard]] inline int GetKeyCode() const { return m_KeyCode; }
+
 		[[nodiscard]] std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+	protected:
+		int m_KeyCode;
+	};
+
+	class DOUGH_API KeyTypedEvent : public Dough::Event
+	{
+	public:
+		KeyTypedEvent(int keycode)
+			: m_KeyCode(keycode)
+		{ }
+
+		EVENT_CLASS_CATEGORY(EC_Keyboard | EC_Input)
+		EVENT_CLASS_TYPE(KeyTyped)
+
+		[[nodiscard]] inline int GetKeyCode() const { return m_KeyCode; }
+
+		[[nodiscard]] std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
 			return ss.str();
 		}
 

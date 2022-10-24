@@ -26,6 +26,7 @@ namespace Dough
 		[[nodiscard]] inline Window& GetWindow() const { return *m_Window; }
 	private:
 		bool OnWindowClosed(WindowCloseEvent e);
+		bool OnWindowResized(WindowResizeEvent e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
