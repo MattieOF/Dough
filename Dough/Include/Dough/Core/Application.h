@@ -14,7 +14,7 @@ namespace Dough
 
 		[[nodiscard]] static inline Application& Get() { return *s_Instance; }
 
-		void Run();
+		bool Run();
 
 		void OnEvent(Event& e);
 

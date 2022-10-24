@@ -9,9 +9,14 @@ int main(int argc, char** argv)
 {
 	Dough::Init();
 
-	auto app = Dough::CreateApplication();
-	app->Run();
-	delete app;
+	bool keepRunning = true;
+	do
+	{
+		auto app = Dough::CreateApplication();
+		keepRunning = app->Run();
+		delete app;
+	} while (keepRunning);
+
 }
 
 #endif

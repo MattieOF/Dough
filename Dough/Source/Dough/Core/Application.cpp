@@ -17,9 +17,10 @@ namespace Dough
 
 	Application::~Application()
 	{
+		s_Instance = nullptr;
 	}
 
-	void Application::Run()
+	bool Application::Run()
 	{
 		while (m_Running)
 		{
@@ -32,6 +33,8 @@ namespace Dough
 
 			m_Window->OnUpdate();
 		}
+
+		return false;
 	}
 
 	void Application::OnEvent(Event& e)
