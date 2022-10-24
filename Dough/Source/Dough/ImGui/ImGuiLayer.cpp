@@ -65,6 +65,8 @@ namespace Dough
 	void ImGuiLayer::OnDetach()
 	{
 		Layer::OnDetach();
+
+		ImGui_ImplOpenGL3_Shutdown();
 	}
 
 	void ImGuiLayer::OnUpdate()

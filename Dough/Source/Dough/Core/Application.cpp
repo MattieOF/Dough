@@ -17,6 +17,10 @@ namespace Dough
 
 	Application::~Application()
 	{
+		// Detach all layers from top to bottom
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+			(*--it)->OnDetach();
+
 		s_Instance = nullptr;
 	}
 
@@ -34,7 +38,7 @@ namespace Dough
 			m_Window->OnUpdate();
 		}
 
-		return false;
+		return true;
 	}
 
 	void Application::OnEvent(Event& e)

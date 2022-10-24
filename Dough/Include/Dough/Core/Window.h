@@ -28,8 +28,8 @@ namespace Dough
 
 		virtual void OnUpdate() = 0;
 
-		[[nodisard]] inline virtual uint32_t GetWidth() const = 0;
-		[[nodisard]] inline virtual uint32_t GetHeight() const = 0;
+		[[nodiscard]] inline virtual uint32_t GetWidth() const = 0;
+		[[nodiscard]] inline virtual uint32_t GetHeight() const = 0;
 
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 
