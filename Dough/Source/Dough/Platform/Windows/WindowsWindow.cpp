@@ -2,8 +2,11 @@
 #include "Dough/Platform/Windows/WindowsWindow.h"
 
 #include "Dough/Core/Log.h"
+#include "Dough/Core/Input/Input.h"
 
 #include <glad/gl.h>
+
+#include "Dough/Platform/Windows/WindowsInput.h"
 
 namespace Dough
 {
@@ -176,6 +179,10 @@ namespace Dough
 		});
 
 		glfwSetErrorCallback(GLFWErrorCallback);
+
+		// Set input class
+		delete Input::s_Instance;
+		Input::s_Instance = new WindowsInput();
 	}
 
 	void WindowsWindow::Shutdown()

@@ -39,6 +39,8 @@ namespace Dough
 		[[nodiscard]] virtual const char* GetClipboardText() const = 0;
 		virtual void SetClipboardText(const char* text) = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		static Window* Create(const WindowSpecification& spec = WindowSpecification());
 		
 		struct WindowData

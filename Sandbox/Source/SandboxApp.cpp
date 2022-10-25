@@ -1,5 +1,6 @@
 #include <Dough.h>
 
+#include "Dough/Core/Input/Input.h"
 #include "Dough/ImGui/ImGuiLayer.h"
 
 class ExampleLayer : public Dough::Layer
@@ -11,7 +12,8 @@ public:
 
 	void OnUpdate() override
 	{
-		// DH_TRACE("Updating example layer");
+		if (Dough::Input::IsMouseButtonPressed(0))
+			DH_TRACE("LMB down poggers");
 	}
 
 	void OnEvent(Dough::Event& event) override
