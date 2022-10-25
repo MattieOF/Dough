@@ -28,7 +28,7 @@ ppk::assert::implementation::AssertAction::AssertAction AssertHandler(const char
     case ppk::assert::implementation::AssertLevel::Fatal:
         DH_CRITICAL("Assertion failed! | {0} | Line {1} in file \"{2}\", function \"{3}\".", expression, line, file, function);
         if (message)
-            DH_TRACE("With message: {0}", message);
+            DH_CRITICAL("With message: {0}", message);
         break;
     default:
         DH_ERROR("Assertion failed with custom level {0}! | {1} | Line {2} in file {3}, function {4}.", level, expression, line, file, function);

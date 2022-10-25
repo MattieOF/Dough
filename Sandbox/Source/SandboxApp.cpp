@@ -1,6 +1,5 @@
 #include <Dough.h>
 
-#include "Dough/Core/Input/Input.h"
 #include "Dough/ImGui/ImGuiLayer.h"
 
 class ExampleLayer : public Dough::Layer
