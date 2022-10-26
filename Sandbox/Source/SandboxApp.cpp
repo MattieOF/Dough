@@ -11,8 +11,18 @@ public:
 
 	void OnUpdate() override
 	{
-		if (Dough::Input::IsMouseButtonPressed(0))
+		if (Dough::Input::IsMouseButtonPressed(DH_MOUSE_BUTTON_LEFT))
 			DH_TRACE("LMB down poggers");
+
+		if (Dough::Input::IsKeyPressed(DH_KEY_W))
+			DH_TRACE("Move forward");
+
+		if (Dough::Input::IsKeyPressed(DH_KEY_ESCAPE))
+		{
+			// TODO: This is terrible, add functions to do this
+			Dough::WindowCloseEvent e;
+			Dough::Application::Get().OnEvent(e);
+		}
 	}
 
 	void OnEvent(Dough::Event& event) override

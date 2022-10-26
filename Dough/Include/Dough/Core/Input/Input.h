@@ -1,6 +1,8 @@
 #pragma once
 
 #include "dhpch.h"
+#include "Dough/Core/Input/KeyCodes.h"
+#include "Dough/Core/Input/MouseButtonCodes.h"
 
 namespace Dough
 {

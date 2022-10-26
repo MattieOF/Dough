@@ -38,7 +38,7 @@ namespace Dough
 			m_Window->OnUpdate();
 		}
 
-		return false;
+		return m_RequestingRestart;
 	}
 
 	void Application::OnEvent(Event& e)
