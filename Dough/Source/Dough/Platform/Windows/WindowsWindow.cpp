@@ -74,6 +74,7 @@ namespace Dough
 			s_GLFWInitialised = true;
 		}
 
+		glfwDefaultWindowHints();
 		m_Window = glfwCreateWindow(spec.Width, spec.Height, spec.Title.c_str(), nullptr, nullptr);
 		DH_ASSERT_FATAL(m_Window, "Failed to create GLFW window!");
 		glfwMakeContextCurrent(m_Window);

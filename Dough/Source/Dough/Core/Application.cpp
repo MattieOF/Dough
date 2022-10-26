@@ -13,14 +13,16 @@ namespace Dough
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		if (m_EnableImGui)
+		{
+			m_ImGuiLayer = new ImGuiLayer();
+			PushOverlay(m_ImGuiLayer);
+		}
 	}
 
 	Application::~Application()
 	{
-		// Detach all layers from top to bottom
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
-			(*--it)->OnDetach();
-
 		s_Instance = nullptr;
 	}
 
@@ -34,6 +36,15 @@ namespace Dough
 			// Update all layers from the base layer up
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			if (m_EnableImGui)
+			{
+				DH_ASSERT_ERROR(m_ImGuiLayer, "Attempting to render ImGui, but ImGui layer is null.");
+				m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+				m_ImGuiLayer->End();
+			}
 
 			m_Window->OnUpdate();
 		}

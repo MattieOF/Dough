@@ -1,6 +1,5 @@
 #include <Dough.h>
-
-#include "Dough/ImGui/ImGuiLayer.h"
+#include <imgui.h>
 
 class ExampleLayer : public Dough::Layer
 {
@@ -11,12 +10,6 @@ public:
 
 	void OnUpdate() override
 	{
-		if (Dough::Input::IsMouseButtonPressed(DH_MOUSE_BUTTON_LEFT))
-			DH_TRACE("LMB down poggers");
-
-		if (Dough::Input::IsKeyPressed(DH_KEY_W))
-			DH_TRACE("Move forward");
-
 		if (Dough::Input::IsKeyPressed(DH_KEY_ESCAPE))
 		{
 			// TODO: This is terrible, add functions to do this
@@ -29,6 +22,13 @@ public:
 	{
 		// DH_TRACE("{0}", event);
 	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}
 };
 
 class Sandbox : public Dough::Application
@@ -37,7 +37,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Dough::ImGuiLayer());
+		m_RequestingRestart = true;
 	}
 
 	~Sandbox()

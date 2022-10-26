@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Dough/Core/Core.h"
+#include "Dough/ImGui/ImGuiLayer.h"
 #include "Layers/LayerStack.h"
 
 namespace Dough
@@ -24,15 +25,20 @@ namespace Dough
 		void PopOverlay(Layer* overlay);
 
 		[[nodiscard]] inline Window& GetWindow() const { return *m_Window; }
+	protected:
+		bool m_RequestingRestart = false;
 	private:
 		bool OnWindowClosed(WindowCloseEvent e);
 		bool OnWindowResized(WindowResizeEvent e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
-		bool m_RequestingRestart = false;
-		LayerStack m_LayerStack;
 
+		bool m_EnableImGui = true;
+		ImGuiLayer* m_ImGuiLayer;
+
+		LayerStack m_LayerStack;
+		
 		static Application* s_Instance;
 	};
 

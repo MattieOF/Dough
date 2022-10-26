@@ -4,19 +4,21 @@
 namespace Dough
 {
 	LayerStack::LayerStack()
-	{
-		m_LayerInsert = m_Layers.begin();
-	}
+	{ }
 
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : m_Layers)
+		{
+			layer->OnDetach();
 			delete layer;
+		}
 	}
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+		m_Layers.emplace(m_Layers.begin() + m_LayerStackInsert, layer);
+		m_LayerStackInsert++;
 		layer->OnAttach();
 	}
 
@@ -33,13 +35,13 @@ namespace Dough
 		{
 			layer->OnDetach();
 			m_Layers.erase(it);
-			m_LayerInsert--;
+			m_LayerStackInsert--;
 		}
 	}
 
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
-		auto it = std::find(m_LayerInsert, m_Layers.end(), overlay);
+		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
 		{
 			overlay->OnDetach();

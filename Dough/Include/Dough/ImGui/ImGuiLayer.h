@@ -13,23 +13,12 @@ namespace Dough
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDetach() override;
-		void OnUpdate() override;
-		void OnEvent(Event& event) override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
 
-	private:
-		bool OnMouseMoved(MouseMovedEvent& e) const;
-		bool OnMouseButtonDown(MouseButtonPressedEvent& e) const;
-		bool OnMouseButtonUp(MouseButtonReleasedEvent& e) const;
-		bool OnMouseScrolled(MouseScrolledEvent& e) const;
-		bool OnKeyPressed(KeyPressedEvent& e) const;
-		bool OnKeyReleased(KeyReleasedEvent& e) const;
-		bool OnKeyTyped(KeyTypedEvent& e) const;
-		bool OnWindowResize(WindowResizeEvent& e) const;
-		
-		static const char* GetClipboardTextCallback(void* userData);
-		static void SetClipboardTextCallback(void* userData, const char* text);
+		void Begin();
+		void End();
 
 	private:
 		ImGuiIO* m_IO = nullptr;

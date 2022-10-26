@@ -93,6 +93,7 @@ project "Sandbox"
     { 
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.PPK_ASSERT}",
+        "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
 
         "Dough/Include",
