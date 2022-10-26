@@ -11,6 +11,7 @@ IncludeDir["GLFW"] = "Dough/Vendor/GLFW/include"
 IncludeDir["PPK_ASSERT"] = "Dough/Vendor/PPK_ASSERT"
 IncludeDir["GLAD"] = "Dough/Vendor/GLAD/include"
 IncludeDir["ImGui"] = "Dough/Vendor/ImGui/"
+IncludeDir["glm"] = "Dough/Vendor/glm/"
 
 group "Vendor"
     include "Dough/Vendor/GLFW"
@@ -46,6 +47,7 @@ project "Dough"
         "%{IncludeDir.GLAD}",
         "%{IncludeDir.PPK_ASSERT}",
         "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}",
 
         "Dough/Include"
     }
@@ -91,6 +93,7 @@ project "Sandbox"
     { 
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.PPK_ASSERT}",
+        "%{IncludeDir.glm}",
 
         "Dough/Include",
         "Sandbox/Include" 
