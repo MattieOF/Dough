@@ -8,3 +8,4 @@ Uses these open source libraries (<3):
 - [GLFW](https://github.com/glfw/glfw) by [contributors](https://github.com/glfw/glfw/graphs/contributors)
 - [GLAD](https://github.com/Dav1dde/glad) by David Herberth and contributors
 - [Dear ImGui](https://github.com/ocornut/imgui) by Omar Cornut and contributors
+- [glm](https://github.com/g-truc/glm) by [contributors](https://github.com/g-truc/glm/graphs/contributors)
