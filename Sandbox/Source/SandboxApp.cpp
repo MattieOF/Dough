@@ -1,5 +1,8 @@
 #include <Dough.h>
 #include <imgui.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+
+#include "SandboxLog.h"
 
 class ExampleLayer : public Dough::Layer
 {
@@ -31,6 +34,8 @@ public:
 	}
 };
 
+DH_DECLARE_LOGGER_CPP(Sandbox);
+
 class Sandbox : public Dough::Application
 {
 public:
@@ -38,6 +43,9 @@ public:
 	{
 		PushLayer(new ExampleLayer());
 		m_RequestingRestart = true;
+
+		DH_DEFINE_LOGGER(Sandbox);
+		SANDBOX_INFO("Test");
 	}
 
 	~Sandbox()
