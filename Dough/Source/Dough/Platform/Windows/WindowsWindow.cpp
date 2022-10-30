@@ -6,6 +6,7 @@
 
 #include <glad/gl.h>
 
+#include "Dough/Platform/OpenGL/OpenGLContext.h"
 #include "Dough/Platform/Windows/WindowsInput.h"
 
 namespace Dough
@@ -35,7 +36,7 @@ namespace Dough
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_GraphicsContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -77,14 +78,12 @@ namespace Dough
 		glfwDefaultWindowHints();
 		m_Window = glfwCreateWindow(spec.Width, spec.Height, spec.Title.c_str(), nullptr, nullptr);
 		DH_ASSERT_FATAL(m_Window, "Failed to create GLFW window!");
-		glfwMakeContextCurrent(m_Window);
+
+		m_GraphicsContext = new OpenGLContext(m_Window);
+		m_GraphicsContext->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
-
-		// Load GLAD
-		int version = gladLoadGL(glfwGetProcAddress);
-		DH_ASSERT_FATAL(version, "Failed to initialise OpenGL via GLAD!");
-		DH_ENGINE_INFO("Loaded OpenGL v{0}.{1}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 
 		// Setup GLFW event callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)

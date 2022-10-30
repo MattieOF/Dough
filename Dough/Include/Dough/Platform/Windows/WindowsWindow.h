@@ -4,6 +4,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Dough/Renderer/GraphicsContext.h"
+
 namespace Dough
 {
 	class WindowsWindow : public Window
@@ -34,6 +36,8 @@ namespace Dough
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_GraphicsContext;
+
 		WindowData m_Data;
 	};
 }
