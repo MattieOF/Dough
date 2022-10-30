@@ -40,6 +40,8 @@ namespace Dough
 		LayerStack m_LayerStack;
 		
 		static Application* s_Instance;
+
+		uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	};
 
 	// To be defined by the client
