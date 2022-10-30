@@ -32,7 +32,7 @@ namespace Dough
 		EC_MouseButton  = BIT(4)
 	};
 
-	class DOUGH_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 

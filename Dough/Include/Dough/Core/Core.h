@@ -1,14 +1,14 @@
 #pragma once
 
-#ifdef DH_PLATFORM_WINDOWS
-	#ifdef DH_BUILD_DLL
-		#define DOUGH_API __declspec(dllexport)
-	#else
-		#define DOUGH_API __declspec(dllimport)
-	#endif
-#else
-	#error Dough currently only supports Windows.
-#endif
+//#ifdef DH_PLATFORM_WINDOWS
+//	#ifdef DH_BUILD_DLL
+//		#define DOUGH_API __declspec(dllexport)
+//	#else
+//		#define DOUGH_API __declspec(dllimport)
+//	#endif
+//#else
+//	#error Dough currently only supports Windows.
+//#endif
 
 #define BIT(x) (1 << (x))
 
@@ -42,5 +42,5 @@
 
 namespace Dough
 {
-	DOUGH_API void Init();
+	void Init();
 }

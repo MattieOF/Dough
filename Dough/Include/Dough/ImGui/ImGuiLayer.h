@@ -7,7 +7,7 @@ struct ImGuiIO;
 
 namespace Dough
 {
-	class DOUGH_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

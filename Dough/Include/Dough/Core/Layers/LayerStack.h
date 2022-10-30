@@ -6,7 +6,7 @@
 
 namespace Dough
 {
-	class DOUGH_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

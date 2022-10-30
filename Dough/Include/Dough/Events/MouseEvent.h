@@ -4,7 +4,7 @@
 
 namespace Dough
 {
-	class DOUGH_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -28,7 +28,7 @@ namespace Dough
 		float m_MouseX, m_MouseY;
 	};
 
-	class DOUGH_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(double xOffset, double yOffset)
@@ -52,7 +52,7 @@ namespace Dough
 		double m_XOffset, m_YOffset;
 	};
 
-	class DOUGH_API MouseButtonPressedEvent : public Event
+	class MouseButtonPressedEvent : public Event
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -75,7 +75,7 @@ namespace Dough
 		int m_Button;
 	};
 
-	class DOUGH_API MouseButtonReleasedEvent : public Event
+	class MouseButtonReleasedEvent : public Event
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

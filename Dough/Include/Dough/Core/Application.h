@@ -7,7 +7,7 @@
 
 namespace Dough
 {
-	class DOUGH_API Application
+	class Application
 	{
 	public:
 		Application();

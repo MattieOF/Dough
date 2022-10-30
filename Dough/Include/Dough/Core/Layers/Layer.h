@@ -5,7 +5,7 @@
 
 namespace Dough
 {
-	class DOUGH_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

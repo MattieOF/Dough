@@ -4,7 +4,7 @@
 
 namespace Dough
 {
-	class DOUGH_API KeyPressedEvent : public Dough::Event
+	class KeyPressedEvent : public Dough::Event
 	{
 	public:
 		KeyPressedEvent(int keycode, bool repeat)
@@ -29,7 +29,7 @@ namespace Dough
 		bool m_Repeat;
 	};
 
-	class DOUGH_API KeyReleasedEvent : public Dough::Event
+	class KeyReleasedEvent : public Dough::Event
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -52,7 +52,7 @@ namespace Dough
 		int m_KeyCode;
 	};
 
-	class DOUGH_API KeyTypedEvent : public Dough::Event
+	class KeyTypedEvent : public Dough::Event
 	{
 	public:
 		KeyTypedEvent(int keycode)

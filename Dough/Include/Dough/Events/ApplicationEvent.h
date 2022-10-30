@@ -4,7 +4,7 @@
 
 namespace Dough
 {
-	class DOUGH_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(uint32_t width, uint32_t height)
@@ -27,7 +27,7 @@ namespace Dough
 		uint32_t m_Width, m_Height;
 	};
 
-	class DOUGH_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() = default;
@@ -36,7 +36,7 @@ namespace Dough
 		EVENT_CLASS_TYPE(WindowClose)
 	};
 
-	class DOUGH_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() = default;
@@ -45,7 +45,7 @@ namespace Dough
 		EVENT_CLASS_TYPE(AppTick)
 	};
 
-	class DOUGH_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() = default;
@@ -54,7 +54,7 @@ namespace Dough
 		EVENT_CLASS_TYPE(AppUpdate)
 	};
 
-	class DOUGH_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() = default;

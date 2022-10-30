@@ -6,7 +6,7 @@
 
 namespace Dough
 {
-	class DOUGH_API Input
+	class Input
 	{
 		friend class WindowsWindow;
 
