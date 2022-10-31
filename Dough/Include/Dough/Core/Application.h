@@ -21,6 +21,8 @@ namespace Dough
 
 		void OnEvent(Event& e);
 
+		void RequestClose();
+
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 		void PopLayer(Layer* layer);

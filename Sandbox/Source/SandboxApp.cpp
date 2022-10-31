@@ -15,9 +15,7 @@ public:
 	{
 		if (Dough::Input::IsKeyPressed(DH_KEY_ESCAPE))
 		{
-			// TODO: This is terrible, add functions to do this
-			Dough::WindowCloseEvent e;
-			Dough::Application::Get().OnEvent(e);
+			Dough::Application::Get().RequestClose();
 		}
 	}
 

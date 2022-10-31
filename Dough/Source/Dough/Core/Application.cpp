@@ -127,6 +127,11 @@ namespace Dough
 		}
 	}
 
+	void Application::RequestClose()
+	{
+		m_Running = false;
+	}
+
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
