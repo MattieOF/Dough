@@ -27,8 +27,6 @@ namespace Dough
 		// Vertex buffer
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
 		float verticies[3 * 3] = 
 		{
@@ -36,6 +34,9 @@ namespace Dough
 			 0.5f, -0.5f, 0.0f,
 			 0.0f,  0.5f, 0.0f
 		};
+
+		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
+		m_VertexBuffer->Bind();
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
 
@@ -57,9 +58,8 @@ namespace Dough
 			0, 0, 1  // Vertex 3, blue
 		};
 
-		uint32_t colorBuffer;
-		glGenBuffers(1, &colorBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+		m_ColorBuffer.reset(VertexBuffer::Create(colors, sizeof(colors)));
+		m_ColorBuffer->Bind();
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 		glBufferData(GL_ARRAY_BUFFER, 3 * (3 * sizeof(float)), colors, GL_STATIC_DRAW);

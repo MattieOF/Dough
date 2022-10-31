@@ -35,6 +35,8 @@ namespace Dough
 		glfwSwapBuffers(m_WindowHandle);
 	}
 
+    // Code from https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f
+    // Edited to work with our logging and assert system
 	void OpenGLContext::GLErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 	{
 #ifndef DH_SHOW_GL_NOTIFICATIONS

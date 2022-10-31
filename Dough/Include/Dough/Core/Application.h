@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Dough/Core/Core.h"
 #include "Dough/ImGui/ImGuiLayer.h"
+#include "Dough/Renderer/Buffer.h"
 #include "Layers/LayerStack.h"
 
 namespace Dough
@@ -45,8 +46,9 @@ namespace Dough
 		
 		static Application* s_Instance;
 
-		uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		uint32_t m_VertexArray, m_IndexBuffer;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer, m_ColorBuffer;
 	};
 
 	// To be defined by the client
