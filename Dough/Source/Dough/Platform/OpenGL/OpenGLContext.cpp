@@ -18,7 +18,7 @@ namespace Dough
 		glfwMakeContextCurrent(m_WindowHandle);
 
 		// Load GLAD
-		int version = gladLoadGL(glfwGetProcAddress);
+		const int version = gladLoadGL(glfwGetProcAddress);
 		DH_ASSERT_FATAL(version, "Failed to initialise OpenGL via GLAD!");
 		DH_ENGINE_INFO("Loaded OpenGL v{0}", glGetString(GL_VERSION));
 		DH_ENGINE_INFO("Rendering using {0}, drivers from {1}.", glGetString(GL_RENDERER), glGetString(GL_VENDOR));

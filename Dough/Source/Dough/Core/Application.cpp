@@ -2,6 +2,10 @@
 #include "Dough/Core/Application.h"
 #include "glad/gl.h"
 
+#include <fstream>
+
+#include "Dough/Renderer/Shader.h"
+
 namespace Dough
 {
 	Application* Application::s_Instance = nullptr;
@@ -45,6 +49,31 @@ namespace Dough
 		uint32_t indicies[3] = { 0, 1, 2 };
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
+
+		float colors[] =
+		{
+			1, 0, 0, // Vertex 1, red
+			0, 1, 0, // Vertex 2, green
+			0, 0, 1  // Vertex 3, blue
+		};
+
+		uint32_t colorBuffer;
+		glGenBuffers(1, &colorBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+		glBufferData(GL_ARRAY_BUFFER, 3 * (3 * sizeof(float)), colors, GL_STATIC_DRAW);
+		
+		std::ifstream fragSrc;
+		std::stringstream fragSrcStream;
+		fragSrc.open("Content/Shaders/Test.frag");
+		fragSrcStream << fragSrc.rdbuf();
+		std::ifstream vertSrc;
+		std::stringstream vertSrcStream;
+		vertSrc.open("Content/Shaders/Test.vert");
+		vertSrcStream << vertSrc.rdbuf();
+
+		m_Shader.reset(new Shader(vertSrcStream.str(), fragSrcStream.str()));
 	}
 
 	Application::~Application()
@@ -59,6 +88,8 @@ namespace Dough
 			glClearColor(0.15f, 0.15f, 0.15f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_Shader->Bind();
+			
 			glBindVertexArray(m_VertexArray);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 

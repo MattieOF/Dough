@@ -7,6 +7,8 @@
 
 namespace Dough
 {
+	class Shader;
+
 	class Application
 	{
 	public:
@@ -42,6 +44,7 @@ namespace Dough
 		static Application* s_Instance;
 
 		uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	};
 
 	// To be defined by the client
