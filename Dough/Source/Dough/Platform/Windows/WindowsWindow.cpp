@@ -9,6 +9,12 @@
 #include "Dough/Platform/OpenGL/OpenGLContext.h"
 #include "Dough/Platform/Windows/WindowsInput.h"
 
+// This should force usage of a dedicated nvidia GPU over an integrated one, if multiple exist within a system.
+// Thanks to http://stevendebock.blogspot.com/2013/07/nvidia-optimus.html
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
+
 namespace Dough
 {
 	static bool s_GLFWInitialised = false;
