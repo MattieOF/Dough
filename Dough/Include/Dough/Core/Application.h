@@ -23,6 +23,8 @@ namespace Dough
 		void OnEvent(Event& e);
 
 		void RequestClose();
+		void RequestFullClose();
+		void RequestRestart();
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

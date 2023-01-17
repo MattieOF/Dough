@@ -15,7 +15,10 @@ public:
 	{
 		if (Dough::Input::IsKeyPressed(DH_KEY_ESCAPE))
 		{
-			Dough::Application::Get().RequestClose();
+			if (Dough::Input::IsKeyPressed(DH_KEY_LEFT_SHIFT))
+				Dough::Application::Get().RequestRestart();
+			else
+				Dough::Application::Get().RequestFullClose();
 		}
 	}
 
@@ -40,7 +43,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		m_RequestingRestart = true;
 
 		DH_DEFINE_LOGGER(Sandbox);
 		SANDBOX_INFO("Test");
