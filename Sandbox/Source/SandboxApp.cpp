@@ -35,17 +35,15 @@ public:
 	}
 };
 
-DH_DECLARE_LOGGER_CPP(Sandbox);
-
 class Sandbox : public Dough::Application
 {
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
-
 		DH_DEFINE_LOGGER(Sandbox);
 		SANDBOX_INFO("Test");
+
+		PushLayer(new ExampleLayer());
 	}
 
 	~Sandbox()
