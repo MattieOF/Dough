@@ -74,7 +74,7 @@ namespace Dough
 		vertSrc.open("Content/Shaders/Test.vert");
 		vertSrcStream << vertSrc.rdbuf();
 
-		m_Shader.reset(new Shader(vertSrcStream.str(), fragSrcStream.str()));
+		m_Shader.reset(Shader::Create(vertSrcStream.str(), fragSrcStream.str()));
 	}
 
 	Application::~Application()

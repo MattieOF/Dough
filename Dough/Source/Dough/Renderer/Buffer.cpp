@@ -2,6 +2,7 @@
 #include "Dough/Renderer/Buffer.h"
 #include "Dough/Renderer/Renderer.h"
 
+// Platform specific
 #include "Dough/Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Dough
