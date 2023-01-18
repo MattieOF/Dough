@@ -1,9 +1,14 @@
 #pragma once
 
+#include <glad/gl.h>
+
+#include "Dough/Renderer/Buffer.h"
 #include "Dough/Renderer/Shader.h"
 
 namespace Dough
 {
+	GLenum ShaderDataTypeToGLBaseType(ShaderDataType type);
+
 	class OpenGLShader : public Shader
 	{
 	public:

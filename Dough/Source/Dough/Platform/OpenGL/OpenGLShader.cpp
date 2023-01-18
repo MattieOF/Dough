@@ -5,6 +5,31 @@
 
 namespace Dough
 {
+	GLenum ShaderDataTypeToGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case ShaderDataType::None:   return 0;
+
+			case ShaderDataType::Float:  
+			case ShaderDataType::Float2: 
+			case ShaderDataType::Float3: 
+			case ShaderDataType::Float4: 
+			case ShaderDataType::Mat3:   
+			case ShaderDataType::Mat4:   return GL_FLOAT;
+
+			case ShaderDataType::Int:    
+			case ShaderDataType::Int2:   
+			case ShaderDataType::Int3:   
+			case ShaderDataType::Int4:   return GL_INT;
+
+			case ShaderDataType::Bool:   return GL_BOOL;
+		}
+
+		DH_ASSERT_ERROR(false, "Unknown shader data type! (id: %i)", (int)type);
+		return 0;
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& vertSource, const std::string& fragSource)
 	{
 		// Compile vertex shader

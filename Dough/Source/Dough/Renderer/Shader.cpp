@@ -18,7 +18,7 @@ namespace Dough
 			return new OpenGLShader(vertSource, fragSource);
 		}
 
-		DH_ASSERT_ERROR(false, "Tried to create shader with invalid RenderAPI {0}.", Renderer::GetAPI());
+		DH_ASSERT_ERROR(false, "Tried to create shader for invalid RenderAPI (%s, id: %i)!", Renderer::APIToString(Renderer::GetAPI()), Renderer::GetAPI());
 		return nullptr;
 	}
 }

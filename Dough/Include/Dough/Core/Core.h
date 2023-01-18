@@ -14,8 +14,10 @@
 
 #ifdef DH_PLATFORM_WINDOWS
 	#define UNALIGNED __unaligned
+	#define FORCEINLINE __forceinline
 #else
 	#define UNALIGNED
+	#define FORCEINLINE inline
 #endif
 
 // From winnt.h:

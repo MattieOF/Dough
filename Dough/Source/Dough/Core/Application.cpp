@@ -4,6 +4,7 @@
 
 #include <fstream>
 
+#include "Dough/Platform/OpenGL/OpenGLShader.h"
 #include "Dough/Renderer/Renderer.h"
 #include "Dough/Renderer/Shader.h"
 
@@ -30,40 +31,37 @@ namespace Dough
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		float verticies[3 * 3] = 
+		float verticies[3 * 6] = 
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 1, 0, 0,
+			 0.5f, -0.5f, 0.0f, 0, 1, 0,
+			 0.0f,  0.5f, 0.0f, 0, 0, 1
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(verticies, DH_ARRAY_SIZE(verticies)));
-		m_VertexBuffer->Bind();
+
+		BufferLayout bufferLayout({
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float3, "a_Color" }
+		});
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		int elementIndex = 0;
+		for (auto element : bufferLayout)
+		{
+			glEnableVertexAttribArray(elementIndex);
+			glVertexAttribPointer(elementIndex, GetShaderDataTypeElementCount(element.Type),
+			                      ShaderDataTypeToGLBaseType(element.Type), element.Normalised ? GL_TRUE : GL_FALSE,
+			                      bufferLayout.GetStride(),
+			                      reinterpret_cast<const void*>(element.Offset));
+			elementIndex++;
+		}
 
 		// Index buffer
 		uint32_t indicies[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indicies, DH_ARRAY_SIZE(indicies)));
 		m_IndexBuffer->Bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
-
-		// Color buffer
-		float colors[] =
-		{
-			1, 0, 0, // Vertex 1, red
-			0, 1, 0, // Vertex 2, green
-			0, 0, 1  // Vertex 3, blue
-		};
-		
-		m_ColorBuffer.reset(VertexBuffer::Create(colors, DH_ARRAY_SIZE(colors)));
-		m_ColorBuffer->Bind();
-		glBufferData(GL_ARRAY_BUFFER, 3 * (3 * sizeof(float)), colors, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 		
 		std::ifstream fragSrc;
 		std::stringstream fragSrcStream;

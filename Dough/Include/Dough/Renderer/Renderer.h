@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Buffer.h"
+#include "GraphicsContext.h"
+#include "Shader.h"
+
 namespace Dough
 {
 	enum class RendererAPI
