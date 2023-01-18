@@ -48,9 +48,10 @@ namespace Dough
 		
 		static Application* s_Instance;
 
-		uint32_t m_VertexArray, m_IndexBuffer;
+		uint32_t m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer, m_ColorBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	};
 
 	// To be defined by the client

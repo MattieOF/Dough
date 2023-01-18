@@ -6,28 +6,28 @@
 
 namespace Dough
 {
-	VertexBuffer* VertexBuffer::Create(float* verticies, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(float* verticies, const int count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::None:
 			return nullptr;
 		case RendererAPI::OpenGL:
-			return new OpenGLVertexBuffer(verticies, size);
+			return new OpenGLVertexBuffer(verticies, count);
 		}
 
 		DH_ASSERT_ERROR(false, "Tried to create VertexBuffer with invalid RenderAPI {0}.", Renderer::GetAPI());
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indicies, uint32_t size)
+	IndexBuffer* IndexBuffer::Create(uint32_t* indicies, const int count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::None:
 			return nullptr;
 		case RendererAPI::OpenGL:
-			return new OpenGLIndexBuffer(indicies, size);
+			return new OpenGLIndexBuffer(indicies, count);
 		}
 
 		DH_ASSERT_ERROR(false, "Tried to create IndexBuffer with invalid RenderAPI %i.", (int) Renderer::GetAPI());

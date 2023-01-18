@@ -37,7 +37,7 @@ namespace Dough
 			 0.0f,  0.5f, 0.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
+		m_VertexBuffer.reset(VertexBuffer::Create(verticies, DH_ARRAY_SIZE(verticies)));
 		m_VertexBuffer->Bind();
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
@@ -46,25 +46,24 @@ namespace Dough
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
 		// Index buffer
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-
 		uint32_t indicies[3] = { 0, 1, 2 };
-
+		m_IndexBuffer.reset(IndexBuffer::Create(indicies, DH_ARRAY_SIZE(indicies)));
+		m_IndexBuffer->Bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
+		// Color buffer
 		float colors[] =
 		{
 			1, 0, 0, // Vertex 1, red
 			0, 1, 0, // Vertex 2, green
 			0, 0, 1  // Vertex 3, blue
 		};
-
-		m_ColorBuffer.reset(VertexBuffer::Create(colors, sizeof(colors)));
+		
+		m_ColorBuffer.reset(VertexBuffer::Create(colors, DH_ARRAY_SIZE(colors)));
 		m_ColorBuffer->Bind();
+		glBufferData(GL_ARRAY_BUFFER, 3 * (3 * sizeof(float)), colors, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-		glBufferData(GL_ARRAY_BUFFER, 3 * (3 * sizeof(float)), colors, GL_STATIC_DRAW);
 		
 		std::ifstream fragSrc;
 		std::stringstream fragSrcStream;
@@ -93,7 +92,7 @@ namespace Dough
 			m_Shader->Bind();
 			
 			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			// Update all layers from the base layer up
 			for (Layer* layer : m_LayerStack)

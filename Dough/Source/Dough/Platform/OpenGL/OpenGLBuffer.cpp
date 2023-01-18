@@ -5,12 +5,13 @@
 
 namespace Dough
 {
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verticies, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verticies, const int count)
+		: m_Count(count)
 	{
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		// TODO: Don't hardcode draw mode
-		glBufferData(GL_ARRAY_BUFFER, size, verticies, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), verticies, GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -28,12 +29,17 @@ namespace Dough
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indicies, uint32_t size)
+	// -----------------
+	// OpenGLIndexBuffer
+	// -----------------
+
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indicies, const int count)
+		: m_Count(count)
 	{
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 		// TODO: Don't hardcode draw mode
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indicies, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indicies, GL_STATIC_DRAW);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
