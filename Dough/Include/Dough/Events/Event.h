@@ -42,7 +42,7 @@ namespace Dough
 		[[nodiscard]] virtual int GetCategoryFlags() const = 0;
 		[[nodiscard]] virtual std::string ToString() const { return GetName(); }
 
-		[[nodiscard]] inline bool IsInCategory(EventCategory category) const
+		[[nodiscard]] inline bool IsInCategory(const EventCategory category) const
 		{
 			return GetCategoryFlags() & category;
 		}

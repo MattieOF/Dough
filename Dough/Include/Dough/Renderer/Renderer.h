@@ -12,6 +12,7 @@ namespace Dough
 	{
 	public:
 		inline static RendererAPI GetAPI() { return s_RenderAPI; }
+		static const char* APIToString(RendererAPI API);
 	private:
 		static RendererAPI s_RenderAPI;
 	};

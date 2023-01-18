@@ -1,4 +1,4 @@
-// For use by Dough applications,
+// For use by Dough applications only,
 // as it contains the entry point
 
 #pragma once

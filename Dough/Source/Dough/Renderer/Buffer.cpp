@@ -30,7 +30,7 @@ namespace Dough
 			return new OpenGLIndexBuffer(indicies, size);
 		}
 
-		DH_ASSERT_ERROR(false, "Tried to create IndexBuffer with invalid RenderAPI {0}.", Renderer::GetAPI());
+		DH_ASSERT_ERROR(false, "Tried to create IndexBuffer with invalid RenderAPI %i.", (int) Renderer::GetAPI());
 		return nullptr;
 	}
 }

@@ -44,9 +44,9 @@ namespace Dough
             return;
 #endif
 
-        char* sourceText;
-        char* typeText;
-        char* severityText;
+        const char* sourceText;
+        const char* typeText;
+        const char* severityText;
 
         switch (source) {
         case GL_DEBUG_SOURCE_API:
@@ -70,7 +70,7 @@ namespace Dough
             break;
 
         case GL_DEBUG_SOURCE_OTHER:
-            sourceText = "Unknown";
+            sourceText = "Other";
             break;
 
         default:
@@ -134,7 +134,7 @@ namespace Dough
             break;
         }
 
-        DH_ENGINE_ERROR("OpenGL Error ({0}, id: {4}): from {1}, {2}: {3}", severityText, sourceText, typeText, message, id);
+        DH_ENGINE_ERROR("OpenGL Error ({0} severity, id: {4}): from {1}, {2}: {3}", severityText, sourceText, typeText, message, id);
         DH_ASSERT_ERROR(severity == GL_DEBUG_SEVERITY_NOTIFICATION);
 	}
 }

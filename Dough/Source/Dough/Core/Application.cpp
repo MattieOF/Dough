@@ -4,6 +4,7 @@
 
 #include <fstream>
 
+#include "Dough/Renderer/Renderer.h"
 #include "Dough/Renderer/Shader.h"
 
 namespace Dough
@@ -16,6 +17,7 @@ namespace Dough
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		DH_ENGINE_INFO("Render API: {0}.", Renderer::APIToString(Renderer::GetAPI()));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
 		if (m_EnableImGui)

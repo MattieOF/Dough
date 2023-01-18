@@ -2,7 +2,6 @@
 
 #include "dhpch.h"
 
-#include "Dough/Core/Core.h"
 #include "Dough/Events/Events.h"
 
 namespace Dough
@@ -24,7 +23,7 @@ namespace Dough
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
-		virtual ~Window() { }
+		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
 
@@ -39,7 +38,7 @@ namespace Dough
 		[[nodiscard]] virtual const char* GetClipboardText() const = 0;
 		virtual void SetClipboardText(const char* text) = 0;
 
-		virtual void* GetNativeWindow() const = 0;
+		[[nodiscard]] virtual void* GetNativeWindow() const = 0;
 
 		static Window* Create(const WindowSpecification& spec = WindowSpecification());
 		
