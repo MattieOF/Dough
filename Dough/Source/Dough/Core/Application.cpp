@@ -19,6 +19,7 @@ namespace Dough
 		s_Instance = this;
 
 		m_Specification = spec;
+		m_EnableImGui = spec.EnableImGui;
 
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create());

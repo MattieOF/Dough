@@ -12,6 +12,7 @@ namespace Dough
 	struct ApplicationSpecification
 	{
 		std::string Name = "Dough Application";
+		bool EnableImGui = true;
 	};
 
 	class Application

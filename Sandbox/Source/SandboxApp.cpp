@@ -1,5 +1,6 @@
 #include <Dough.h>
 #include <fstream>
+#include <utility>
 #include <imgui.h>
 #include <Dough/Renderer/Renderer.h>
 #include <Dough/Renderer/Shader.h>
@@ -103,7 +104,7 @@ class Sandbox : public Dough::Application
 {
 public:
 	Sandbox(Dough::ApplicationSpecification spec)
-		: Application(spec)
+		: Application(std::move(spec))
 	{
 		DH_DEFINE_LOGGER(Sandbox);
 		SANDBOX_INFO("Test");
@@ -111,10 +112,7 @@ public:
 		PushLayer(new ExampleLayer());
 	}
 
-	~Sandbox()
-	{
-
-	}
+	~Sandbox() override = default;
 };
 
 Dough::Application* Dough::CreateApplication()
