@@ -9,16 +9,16 @@ namespace Dough
 {
 	GLenum ShaderDataTypeToGLBaseType(ShaderDataType type);
 
-	class OpenGLShader : public Shader
+	class OpenGLShader final : public Shader
 	{
 	public:
 		OpenGLShader(const std::string& vertSource, const std::string& fragSource);
-		virtual ~OpenGLShader() override;
+		~OpenGLShader() override;
 
-		[[nodiscard]] virtual uint32_t GetUniformLocation(const char* name) const override;
+		[[nodiscard]] uint32_t GetUniformLocation(const char* name) const override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 	private:
 		uint32_t m_RendererID;
 	};

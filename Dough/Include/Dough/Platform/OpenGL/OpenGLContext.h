@@ -7,7 +7,7 @@ struct GLFWwindow;
 
 namespace Dough
 {
-	class OpenGLContext : public GraphicsContext
+	class OpenGLContext final : public GraphicsContext
 	{
 	public:
 		OpenGLContext(GLFWwindow* windowHandle);

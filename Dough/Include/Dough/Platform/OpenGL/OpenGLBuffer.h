@@ -4,16 +4,16 @@
 
 namespace Dough
 {
-	class OpenGLVertexBuffer : public VertexBuffer
+	class OpenGLVertexBuffer final : public VertexBuffer
 	{
 	public:
 		OpenGLVertexBuffer(float* verticies, int count);
-		virtual ~OpenGLVertexBuffer() override;
+		~OpenGLVertexBuffer() override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		[[nodiscard]] inline virtual int GetCount() const override { return m_Count; }
+		[[nodiscard]] FORCEINLINE int GetCount() const override { return m_Count; }
 	private:
 		int m_Count;
 		uint32_t m_RendererID = 0;
@@ -23,12 +23,12 @@ namespace Dough
 	{
 	public:
 		OpenGLIndexBuffer(uint32_t* indicies, int count);
-		virtual ~OpenGLIndexBuffer() override;
+		~OpenGLIndexBuffer() override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		[[nodiscard]] inline virtual int GetCount() const override { return m_Count; }
+		[[nodiscard]] FORCEINLINE int GetCount() const override { return m_Count; }
 	private:
 		int m_Count;
 		uint32_t m_RendererID = 0;

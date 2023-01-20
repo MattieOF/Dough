@@ -3,7 +3,7 @@
 
 namespace Dough
 {
-	class OpenGLRendererAPI : public RendererAPI
+	class OpenGLRendererAPI final : public RendererAPI
 	{
 		void SetClearColor(const glm::vec4& newClearColor) override;
 		void Clear() override;

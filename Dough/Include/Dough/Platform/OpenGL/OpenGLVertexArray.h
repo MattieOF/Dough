@@ -4,20 +4,20 @@
 
 namespace Dough
 {
-	class OpenGLVertexArray : public VertexArray
+	class OpenGLVertexArray final : public VertexArray
 	{
 	public:
 		OpenGLVertexArray();
-		virtual ~OpenGLVertexArray() override;
+		~OpenGLVertexArray() override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer) override;
-		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) override;
+		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer) override;
+		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) override;
 
-		[[nodiscard]] virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() override { return m_VertexBuffers; }
-		[[nodiscard]] virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override { return m_IndexBuffer; }
+		[[nodiscard]] FORCEINLINE const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() override { return m_VertexBuffers; }
+		[[nodiscard]] FORCEINLINE const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override { return m_IndexBuffer; }
 
 	private:
 		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;

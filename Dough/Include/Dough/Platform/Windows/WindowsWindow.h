@@ -16,23 +16,23 @@ namespace Dough
 
 		void OnUpdate() override;
 
-		[[nodiscard]] inline uint32_t GetWidth() const override { return m_Data.Width; }
-		[[nodiscard]] inline uint32_t GetHeight() const override { return m_Data.Height; }
+		[[nodiscard]] FORCEINLINE uint32_t GetWidth() const override { return m_Data.Width; }
+		[[nodiscard]] FORCEINLINE uint32_t GetHeight() const override { return m_Data.Height; }
 
-		inline void SetEventCallback(const EventCallbackFn& callback) override
+		FORCEINLINE void SetEventCallback(const EventCallbackFn& callback) override
 		{
 			m_Data.EventCallback = callback;
 		}
 
 		void SetVSync(bool enabled) override;
-		[[nodiscard]] inline bool IsVSync() const override { return m_Data.VSync; }
+		[[nodiscard]] FORCEINLINE bool IsVSync() const override { return m_Data.VSync; }
 
-		[[nodiscard]] inline const char* GetClipboardText() const override;
+		[[nodiscard]] FORCEINLINE const char* GetClipboardText() const override;
 		void SetClipboardText(const char* text) override;
 
 		void SetWindowTitle(const std::string& newTitle) override;
 
-		[[nodiscard]] inline virtual void* GetNativeWindow() const override { return m_Window; }
+		[[nodiscard]] FORCEINLINE virtual void* GetNativeWindow() const override { return m_Window; }
 	private:
 		virtual void Init(const WindowSpecification& spec);
 		virtual void Shutdown();
