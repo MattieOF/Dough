@@ -61,13 +61,13 @@ namespace Dough
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(verticies, count);
 		}
 
-		DH_ASSERT_ERROR(false, "Tried to create vertex buffer for invalid RenderAPI (%s, id: %i)!", Renderer::APIToString(Renderer::GetAPI()), Renderer::GetAPI());
+		DH_ASSERT_ERROR(false, "Tried to create vertex buffer for invalid RenderAPI (%s, id: %i)!", RendererAPI::GetAPIString(Renderer::GetAPI()), Renderer::GetAPI());
 		return nullptr;
 	}
 
@@ -78,13 +78,13 @@ namespace Dough
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indicies, count);
 		}
 
-		DH_ASSERT_ERROR(false, "Tried to create index buffer for invalid RenderAPI (%s, id: %i)!", Renderer::APIToString(Renderer::GetAPI()), Renderer::GetAPI());
+		DH_ASSERT_ERROR(false, "Tried to create index buffer for invalid RenderAPI (%s, id: %i)!", RendererAPI::GetAPIString(Renderer::GetAPI()), Renderer::GetAPI());
 		return nullptr;
 	}
 

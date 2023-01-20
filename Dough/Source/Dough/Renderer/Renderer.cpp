@@ -1,21 +1,21 @@
 #include "dhpch.h"
 #include "Dough/Renderer/Renderer.h"
 
+#include "Dough/Renderer/RenderCommand.h"
+
 namespace Dough
 {
-	RendererAPI Renderer::s_RenderAPI = RendererAPI::OpenGL;
-
-	const char* Renderer::APIToString(RendererAPI API)
+	void Renderer::BeginScene()
 	{
-		switch (API)
-		{
-		case RendererAPI::None:
-			return "None";
-		case RendererAPI::OpenGL:
-			return "OpenGL";
-		default:
-			DH_ENGINE_ERROR("Renderer::APIToString called with invalid API {0}!", (int) API);
-			return "Invalid";
-		}
+	}
+
+	void Renderer::EndScene()
+	{
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	{
+		vertexArray->Bind();
+		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

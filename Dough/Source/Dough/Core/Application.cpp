@@ -3,10 +3,9 @@
 #include "Dough/Core/Application.h"
 
 #include <fstream>
-#include <glad/gl.h>
 
-#include "Dough/Platform/OpenGL/OpenGLShader.h"
 #include "Dough/Renderer/Renderer.h"
+#include "Dough/Renderer/RenderCommand.h"
 #include "Dough/Renderer/Shader.h"
 
 namespace Dough
@@ -23,7 +22,7 @@ namespace Dough
 
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		DH_ENGINE_INFO("Render API: {0}.", Renderer::APIToString(Renderer::GetAPI()));
+		DH_ENGINE_INFO("Render API: {0}.", RendererAPI::GetAPIString(Renderer::GetAPI()));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		m_Window->SetWindowTitle(spec.Name);
 
@@ -97,20 +96,20 @@ namespace Dough
 	{
 		while (m_Running)
 		{
-			glClearColor(0.15f, 0.15f, 0.15f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			m_Shader->Bind();
-
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-			m_SquareVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
 			// Update all layers from the base layer up
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			RenderCommand::SetClearColor(glm::vec4(0.15f, 0.15f, 0.15f, 1));
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();	
+
+			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
+			Renderer::Submit(m_SquareVertexArray);
+			
+			Renderer::EndScene();
 
 			if (m_EnableImGui)
 			{
@@ -187,8 +186,7 @@ namespace Dough
 
 	bool Application::OnWindowResized(WindowResizeEvent e)
 	{
-		// TODO: Abstract this per graphics platform
-		glViewport(0, 0, e.GetWidth(), e.GetHeight());
+		RenderCommand::SetViewport(glm::vec2(e.GetWidth(), e.GetHeight()));
 		return false;
 	}
 }

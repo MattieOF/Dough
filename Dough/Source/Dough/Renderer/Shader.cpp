@@ -12,13 +12,13 @@ namespace Dough
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLShader(vertSource, fragSource);
 		}
 
-		DH_ASSERT_ERROR(false, "Tried to create shader for invalid RenderAPI (%s, id: %i)!", Renderer::APIToString(Renderer::GetAPI()), Renderer::GetAPI());
+		DH_ASSERT_ERROR(false, "Tried to create shader for invalid RenderAPI (%s, id: %i)!", RendererAPI::GetAPIString(Renderer::GetAPI()), Renderer::GetAPI());
 		return nullptr;
 	}
 }

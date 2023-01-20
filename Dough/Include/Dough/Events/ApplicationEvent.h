@@ -14,8 +14,8 @@ namespace Dough
 		EVENT_CLASS_CATEGORY(EC_Application)
 		EVENT_CLASS_TYPE(WindowResize)
 
-		[[nodiscard]] inline uint32_t GetWidth()  const { return m_Width;  }
-		[[nodiscard]] inline uint32_t GetHeight() const { return m_Height; }
+		[[nodiscard]] FORCEINLINE uint32_t GetWidth()  const { return m_Width;  }
+		[[nodiscard]] FORCEINLINE uint32_t GetHeight() const { return m_Height; }
 
 		[[nodiscard]] std::string ToString() const override
 		{
