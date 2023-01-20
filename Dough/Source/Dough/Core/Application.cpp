@@ -13,16 +13,19 @@ namespace Dough
 {
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(ApplicationSpecification spec)
 	{
 		// Initialise instance
 		DH_ASSERT_ERROR(s_Instance == nullptr, "Attempted to create a new Application instance, but one already exists.");
 		s_Instance = this;
 
+		m_Specification = spec;
+
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		DH_ENGINE_INFO("Render API: {0}.", Renderer::APIToString(Renderer::GetAPI()));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		m_Window->SetWindowTitle(spec.Name);
 
 		// Initialise ImGui if enabled
 		if (m_EnableImGui)

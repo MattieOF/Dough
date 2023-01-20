@@ -38,6 +38,8 @@ namespace Dough
 		[[nodiscard]] virtual const char* GetClipboardText() const = 0;
 		virtual void SetClipboardText(const char* text) = 0;
 
+		virtual void SetWindowTitle(const std::string& newTitle) = 0;
+
 		[[nodiscard]] virtual void* GetNativeWindow() const = 0;
 
 		static Window* Create(const WindowSpecification& spec = WindowSpecification());

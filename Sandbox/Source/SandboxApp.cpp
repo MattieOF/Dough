@@ -38,7 +38,8 @@ public:
 class Sandbox : public Dough::Application
 {
 public:
-	Sandbox()
+	Sandbox(Dough::ApplicationSpecification spec)
+		: Application(spec)
 	{
 		DH_DEFINE_LOGGER(Sandbox);
 		SANDBOX_INFO("Test");
@@ -54,5 +55,7 @@ public:
 
 Dough::Application* Dough::CreateApplication()
 {
-	return new Sandbox();
+	ApplicationSpecification spec;
+	spec.Name = "Sandbox App";
+	return new Sandbox(spec);
 }

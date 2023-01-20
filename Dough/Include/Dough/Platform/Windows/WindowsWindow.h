@@ -30,6 +30,8 @@ namespace Dough
 		[[nodiscard]] inline const char* GetClipboardText() const override;
 		void SetClipboardText(const char* text) override;
 
+		void SetWindowTitle(const std::string& newTitle) override;
+
 		[[nodiscard]] inline virtual void* GetNativeWindow() const override { return m_Window; }
 	private:
 		virtual void Init(const WindowSpecification& spec);

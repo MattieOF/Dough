@@ -59,6 +59,11 @@ namespace Dough
 		glfwSetClipboardString(m_Window, text);
 	}
 
+	void WindowsWindow::SetWindowTitle(const std::string& newTitle)
+	{
+		glfwSetWindowTitle(m_Window, newTitle.c_str());
+	}
+
 	void WindowsWindow::Init(const WindowSpecification& spec)
 	{
 		m_Data.Title = spec.Title;

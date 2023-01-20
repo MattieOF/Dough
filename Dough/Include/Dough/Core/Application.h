@@ -11,10 +11,15 @@ namespace Dough
 {
 	class Shader;
 
+	struct ApplicationSpecification
+	{
+		std::string Name = "Dough Application";
+	};
+
 	class Application
 	{
 	public:
-		Application();
+		Application(ApplicationSpecification spec);
 		virtual ~Application();
 
 		[[nodiscard]] static inline Application& Get() { return *s_Instance; }
@@ -38,6 +43,8 @@ namespace Dough
 	private:
 		bool OnWindowClosed(WindowCloseEvent e);
 		bool OnWindowResized(WindowResizeEvent e);
+
+		ApplicationSpecification m_Specification;
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
