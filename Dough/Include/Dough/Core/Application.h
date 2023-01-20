@@ -3,8 +3,6 @@
 #include "Window.h"
 #include "Dough/Core/Core.h"
 #include "Dough/ImGui/ImGuiLayer.h"
-#include "Dough/Renderer/Buffer.h"
-#include "Dough/Renderer/VertexArray.h"
 #include "Layers/LayerStack.h"
 
 namespace Dough
@@ -37,7 +35,7 @@ namespace Dough
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
-		[[nodiscard]] inline Window& GetWindow() const { return *m_Window; }
+		[[nodiscard]] FORCEINLINE Window& GetWindow() const { return *m_Window; }
 	protected:
 		bool m_RequestingRestart = false;
 	private:
@@ -55,12 +53,6 @@ namespace Dough
 		LayerStack m_LayerStack;
 		
 		static Application* s_Instance;
-		
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexBuffer> m_VertexBuffer;
-		std::shared_ptr<IndexBuffer> m_IndexBuffer;
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<VertexArray> m_SquareVertexArray;
 	};
 
 	// To be defined by the client

@@ -32,59 +32,6 @@ namespace Dough
 			m_ImGuiLayer = new ImGuiLayer();
 			PushOverlay(m_ImGuiLayer);
 		}
-
-		// Initialise test vertex
-		float verticies[3 * 6] = 
-		{
-			-0.8f, -0.5f, 0.0f, 1, 0, 0,
-			 -0.2f, -0.5f, 0.0f, 0, 1, 0,
-			 -0.5f,  0.5f, 0.0f, 0, 0, 1
-		};
-		m_VertexBuffer.reset(VertexBuffer::Create(verticies, DH_ARRAY_SIZE(verticies)));
-		BufferLayout bufferLayout({
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float3, "a_Color" }
-		});
-		m_VertexBuffer->SetLayout(bufferLayout);
-		
-		// Initialise test indicies
-		uint32_t indicies[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indicies, DH_ARRAY_SIZE(indicies)));
-
-		// Initialise vertex array
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-
-		// Initialise test square
-		float squareVerticies[4 * 6] =
-		{
-			0.2f, 0.5f, 0.0f, 1, 0, 0,
-			0.8f, 0.5f, 0.0f, 0, 1, 0,
-			0.8f, -0.5f, 0.0f, 0, 0, 1,
-			0.2f, -0.5f, 0.0f, 0.5f, 0.5f, 0.5f
-		};
-		std::shared_ptr<VertexBuffer> squareVertexBuffer(VertexBuffer::Create(squareVerticies, DH_ARRAY_SIZE(squareVerticies)));
-		squareVertexBuffer->SetLayout(bufferLayout);
-
-		uint32_t squareIndicies[6] = { 0, 1, 2, 2, 0, 3 };
-		std::shared_ptr<IndexBuffer> squareIndexBuffer(IndexBuffer::Create(squareIndicies, DH_ARRAY_SIZE(squareIndicies)));
-
-		m_SquareVertexArray.reset(VertexArray::Create());
-		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
-		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
-
-		// Initialise test shader
-		std::ifstream fragSrc;
-		std::stringstream fragSrcStream;
-		fragSrc.open("Content/Shaders/Test.frag");
-		fragSrcStream << fragSrc.rdbuf();
-		std::ifstream vertSrc;
-		std::stringstream vertSrcStream;
-		vertSrc.open("Content/Shaders/Test.vert");
-		vertSrcStream << vertSrc.rdbuf();
-
-		m_Shader.reset(Shader::Create(vertSrcStream.str(), fragSrcStream.str()));
 	}
 
 	Application::~Application()
@@ -96,18 +43,14 @@ namespace Dough
 	{
 		while (m_Running)
 		{
-			// Update all layers from the base layer up
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
-
 			RenderCommand::SetClearColor(glm::vec4(0.15f, 0.15f, 0.15f, 1));
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();	
+			Renderer::BeginScene();
 
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
-			Renderer::Submit(m_SquareVertexArray);
+			// Update all layers from the base layer up
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
 			
 			Renderer::EndScene();
 
