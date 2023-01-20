@@ -34,9 +34,9 @@ namespace Dough
 		// Initialise test vertex
 		float verticies[3 * 6] = 
 		{
-			-0.5f, -0.5f, 0.0f, 1, 0, 0,
-			 0.5f, -0.5f, 0.0f, 0, 1, 0,
-			 0.0f,  0.5f, 0.0f, 0, 0, 1
+			-0.8f, -0.5f, 0.0f, 1, 0, 0,
+			 -0.2f, -0.5f, 0.0f, 0, 1, 0,
+			 -0.5f,  0.5f, 0.0f, 0, 0, 1
 		};
 		m_VertexBuffer.reset(VertexBuffer::Create(verticies, DH_ARRAY_SIZE(verticies)));
 		BufferLayout bufferLayout({
@@ -48,12 +48,29 @@ namespace Dough
 		// Initialise test indicies
 		uint32_t indicies[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indicies, DH_ARRAY_SIZE(indicies)));
-		m_IndexBuffer->Bind();
 
 		// Initialise vertex array
 		m_VertexArray.reset(VertexArray::Create());
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+
+		// Initialise test square
+		float squareVerticies[4 * 6] =
+		{
+			0.2f, 0.5f, 0.0f, 1, 0, 0,
+			0.8f, 0.5f, 0.0f, 0, 1, 0,
+			0.8f, -0.5f, 0.0f, 0, 0, 1,
+			0.2f, -0.5f, 0.0f, 0.5f, 0.5f, 0.5f
+		};
+		std::shared_ptr<VertexBuffer> squareVertexBuffer(VertexBuffer::Create(squareVerticies, DH_ARRAY_SIZE(squareVerticies)));
+		squareVertexBuffer->SetLayout(bufferLayout);
+
+		uint32_t squareIndicies[6] = { 0, 1, 2, 2, 0, 3 };
+		std::shared_ptr<IndexBuffer> squareIndexBuffer(IndexBuffer::Create(squareIndicies, DH_ARRAY_SIZE(squareIndicies)));
+
+		m_SquareVertexArray.reset(VertexArray::Create());
+		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
+		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
 		// Initialise test shader
 		std::ifstream fragSrc;
@@ -84,6 +101,9 @@ namespace Dough
 
 			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_SquareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			// Update all layers from the base layer up
 			for (Layer* layer : m_LayerStack)
