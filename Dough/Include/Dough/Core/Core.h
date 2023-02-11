@@ -39,7 +39,7 @@
 // pointer_to_array_of_char RtlpNumberOf(reference_to_array_of_T);
 //
 // We never even call RtlpNumberOf, we just take the size of dereferencing its return type.
-// We do not even implement RtlpNumberOf, we just decare it.
+// We do not even implement RtlpNumberOf, we just declare it.
 //
 // Attempts to pass pointers instead of arrays to this macro result in compile time errors.
 // That is the point.
@@ -49,6 +49,8 @@ template <typename T, size_t N>
 char(*RtlpNumberOf(UNALIGNED T(&)[N]))[N];
 
 #define DH_ARRAY_SIZE(A) (sizeof(*RtlpNumberOf(A)))
+
+#define DH_SWAP(IntermediateType, a, b) do { IntermediateType t = a; (a) = b; (b) = t; } while (0)
 
 #ifdef DH_ENABLE_ASSERTS
 	#define DH_ASSERT                PPK_ASSERT

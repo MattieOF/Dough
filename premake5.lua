@@ -101,6 +101,9 @@ project "Sandbox"
 		"Dough"
 	}
 
+	filter "configurations:Dist"
+		kind "WindowedApp"
+
 os.mkdir("Sandbox/Source")
 os.mkdir("Sandbox/Include")
 
