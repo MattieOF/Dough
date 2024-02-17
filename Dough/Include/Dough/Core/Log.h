@@ -32,12 +32,17 @@ namespace Dough
 #define DH_WARN(...)               ::Dough::Log::GetAppLogger()->warn(__VA_ARGS__)
 #define DH_ERROR(...)              ::Dough::Log::GetAppLogger()->error(__VA_ARGS__)
 #define DH_CRITICAL(...)           ::Dough::Log::GetAppLogger()->critical(__VA_ARGS__)
-							      
-#define DH_DECLARE_LOGGER(name)       extern std::shared_ptr<spdlog::logger> s_##name##Logger
-#define DH_DECLARE_LOGGER_CPP(name)   std::shared_ptr<spdlog::logger> s_##name##Logger
-#define DH_DEFINE_LOGGER(name)        if (!s_##name##Logger) { spdlog::set_pattern("%^[%T] %n: %v%$");\
-								      s_##name##Logger = spdlog::stdout_color_mt(#name);\
-                                      s_##name##Logger->set_level(spdlog::level::trace); }
+
+#define DH_DECLARE_LOGGER(name, macroName)       extern std::shared_ptr<spdlog::logger> s_##name##Logger;\
+									             template<typename... Args> FORCEINLINE void macroName##_TRACE(spdlog::format_string_t<Args...> fmt, Args &&... args) { s_##name##Logger->trace(fmt, args...); }\
+									             template<typename... Args> FORCEINLINE void macroName##_INFO(spdlog::format_string_t<Args...> fmt, Args &&... args) { s_##name##Logger->info(fmt, args...); }\
+									             template<typename... Args> FORCEINLINE void macroName##_WARN(spdlog::format_string_t<Args...> fmt, Args &&... args) { s_##name##Logger->warn(fmt, args...); }\
+									             template<typename... Args> FORCEINLINE void macroName##_ERROR(spdlog::format_string_t<Args...> fmt, Args &&... args) { s_##name##Logger->error(fmt, args...); }\
+									             template<typename... Args> FORCEINLINE void macroName##_CRITICAL(spdlog::format_string_t<Args...> fmt, Args &&... args) { s_##name##Logger->critical(fmt, args...); }
+#define DH_DECLARE_LOGGER_CPP(name, macroName)   std::shared_ptr<spdlog::logger> s_##name##Logger;
+#define DH_DEFINE_LOGGER(name)                   if (!s_##name##Logger) { spdlog::set_pattern("%^[%T] %n: %v%$");\
+								                 s_##name##Logger = spdlog::stdout_color_mt(#name);\
+                                                 s_##name##Logger->set_level(spdlog::level::trace); }
 
 #else
 
@@ -53,8 +58,12 @@ namespace Dough
 #define DH_ERROR(...)           
 #define DH_CRITICAL(...)   
 
-#define DH_DECLARE_LOGGER(name)      
-#define DH_DECLARE_LOGGER_CPP(name)  
-#define DH_DEFINE_LOGGER(name)       
+#define DH_DECLARE_LOGGER(name, macroName)      template<typename... Args> FORCEINLINE void macroName##_TRACE(spdlog::format_string_t<Args...> fmt, Args &&... args)    { }\
+                                            	template<typename... Args> FORCEINLINE void macroName##_INFO(spdlog::format_string_t<Args...> fmt, Args &&... args)     { }\
+                                             	template<typename... Args> FORCEINLINE void macroName##_WARN(spdlog::format_string_t<Args...> fmt, Args &&... args)     { }\
+                                             	template<typename... Args> FORCEINLINE void macroName##_ERROR(spdlog::format_string_t<Args...> fmt, Args &&... args)    { }\
+                                             	template<typename... Args> FORCEINLINE void macroName##_CRITICAL(spdlog::format_string_t<Args...> fmt, Args &&... args) { }
+#define DH_DECLARE_LOGGER_CPP(name, macroName)
+#define DH_DEFINE_LOGGER(name)
 
 #endif

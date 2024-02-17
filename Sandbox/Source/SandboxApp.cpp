@@ -100,24 +100,24 @@ private:
 	std::shared_ptr<Dough::Shader> m_Shader;
 };
 
-class Sandbox : public Dough::Application
+class SandboxApp : public Dough::Application
 {
 public:
-	Sandbox(Dough::ApplicationSpecification spec)
+	SandboxApp(Dough::ApplicationSpecification spec)
 		: Application(std::move(spec))
 	{
-		DH_DEFINE_LOGGER(Sandbox);
-		SANDBOX_INFO("Test");
+		Sandbox::DefineLoggers();
+		SB_INFO("Test");
 
 		PushLayer(new ExampleLayer());
 	}
 
-	~Sandbox() override = default;
+	~SandboxApp() override = default;
 };
 
 Dough::Application* Dough::CreateApplication()
 {
 	ApplicationSpecification spec;
 	spec.Name = "Sandbox App";
-	return new Sandbox(spec);
+	return new SandboxApp(spec);
 }
